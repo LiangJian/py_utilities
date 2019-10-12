@@ -12,15 +12,17 @@ class FakeData:
     snr = 1.
 
     @classmethod
-    def __init__(cls, Nt_=4, off_=1, m_=np.zeros(1), A_=np.zeros(1), snr_=1.):
-        assert m_.size == A_.size
-        cls.Nt = Nt_
+    def __init__(cls, nt_=4, off_=1, m_=np.zeros(1), a_=np.zeros(1), snr_=1., seed_=0):
+        assert m_.size == a_.size
+        cls.Nt = nt_
         cls.off = off_
         cls.m = m_
-        cls.A = A_
+        cls.A = a_
+
+        np.random.seed(seed_)
 
         cls.vector_t = np.arange(cls.Nt) + cls.off
-        vector_c = np.empty(cls.Nt)
+        vector_c = np.zeros(cls.Nt)
         for i in range(0, len(cls.m)):
             vector_c += cls.A[i] * np.exp(-cls.m[i] * cls.vector_t)
 
